@@ -1,0 +1,719 @@
+.site {
+  --ink: #28231f;
+  --muted: #766f68;
+  --line: #e7ded3;
+  --paper: #f8f5ef;
+  --accent: #87362c;
+  --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  width: 100%;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.header {
+  width: min(100% - 88px, 1280px);
+  height: 88px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wordmarkIcon {
+  width: 37px;
+  height: 37px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--paper);
+  background: var(--accent);
+  font-family: var(--serif);
+  font-size: 25px;
+  font-style: italic;
+  line-height: 1;
+}
+
+.wordmark strong,
+.wordmark small {
+  display: block;
+}
+
+.wordmark strong {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.wordmark small {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 8px;
+  letter-spacing: 0.15em;
+}
+
+.nav {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 37px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.nav a {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: color 160ms ease;
+}
+
+.nav a:hover,
+.nav .navActive {
+  color: var(--ink);
+}
+
+.navActive::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  content: "";
+}
+
+.headerLink,
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.headerLink {
+  padding: 12px 16px;
+  border: 1px solid #d9c8be;
+  border-radius: 2px;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.headerLink:hover {
+  color: #fffaf3;
+  background: var(--accent);
+}
+
+.profile {
+  width: min(100% - 88px, 1080px);
+  min-height: 530px;
+  margin: 0 auto;
+  padding: 67px 0 73px;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.88fr) 1.12fr;
+  align-items: center;
+  gap: clamp(48px, 8vw, 110px);
+  position: relative;
+}
+
+.profileImageWrap {
+  height: 390px;
+  max-width: 370px;
+  width: 100%;
+  position: relative;
+  background: #e6d7c9;
+}
+
+.profileImage {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 38%;
+  filter: saturate(0.78);
+}
+
+.imageNote {
+  position: absolute;
+  right: -18px;
+  bottom: 23px;
+  padding: 9px 12px;
+  color: #fffaf3;
+  background: var(--accent);
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  transform: rotate(-3deg);
+}
+
+.profileCopy {
+  max-width: 530px;
+  padding: 7px 0;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.6;
+}
+
+.profileCopy > .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #748c68;
+}
+
+.eyebrowDivider {
+  color: #c1b5a9;
+}
+
+.profile h1 {
+  margin: 22px 0 17px;
+  font-family: var(--serif);
+  font-size: clamp(52px, 6.3vw, 79px);
+  font-weight: 400;
+  letter-spacing: -0.065em;
+  line-height: 0.96;
+}
+
+.profile h1 em,
+.sectionHeading h2 em,
+.membershipIntro h2 em {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.profileIntro {
+  max-width: 380px;
+  margin: 0 0 11px;
+  font-family: var(--serif);
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.profileBio {
+  max-width: 435px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.profileMeta {
+  margin-top: 24px;
+  padding-top: 17px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px 19px;
+  border-top: 1px solid var(--line);
+  color: #5f5852;
+  font-size: 10px;
+}
+
+.profileActions {
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.primaryButton {
+  min-height: 43px;
+  padding: 0 17px;
+  display: inline-flex;
+  align-items: center;
+  gap: 23px;
+  color: #fffaf3;
+  background: var(--accent);
+  font-size: 10px;
+  font-weight: 600;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.primaryButton:hover {
+  background: #65271f;
+  transform: translateY(-1px);
+}
+
+.profileIndex {
+  position: absolute;
+  right: 0;
+  bottom: 31px;
+  display: flex;
+  gap: 8px;
+  color: #9a8f83;
+  font-size: 8px;
+  letter-spacing: 0.13em;
+}
+
+.profileIndex span {
+  color: var(--accent);
+}
+
+.workSection {
+  padding: 55px max(44px, calc((100vw - 1080px) / 2)) 69px;
+  background: #fffdf9;
+}
+
+.sectionHeading {
+  margin-bottom: 27px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+}
+
+.sectionHeading h2,
+.membershipIntro h2 {
+  margin: 7px 0 0;
+  font-family: var(--serif);
+  font-size: 37px;
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+}
+
+.sectionHeading .textLink {
+  padding-bottom: 5px;
+}
+
+.artworkGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.artworkCard {
+  min-width: 0;
+}
+
+.artworkImage {
+  height: clamp(180px, 24vw, 265px);
+  position: relative;
+  overflow: hidden;
+  background: #ded4c9;
+}
+
+.artworkImage::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(30 22 17 / 15%), transparent 30%, transparent 70%, rgb(30 22 17 / 12%));
+  content: "";
+  pointer-events: none;
+}
+
+.artworkImage img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 350ms ease;
+}
+
+.artworkCard:hover .artworkImage img {
+  transform: scale(1.035);
+}
+
+.artworkOne img {
+  object-position: center 55%;
+}
+
+.artworkTwo img {
+  object-position: center 50%;
+}
+
+.artworkThree img {
+  object-position: center 50%;
+}
+
+.artworkNumber,
+.artworkArrow {
+  position: absolute;
+  z-index: 1;
+  color: white;
+}
+
+.artworkNumber {
+  top: 14px;
+  left: 15px;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.artworkArrow {
+  right: 13px;
+  bottom: 12px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 70%);
+  border-radius: 50%;
+  font-size: 13px;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.artworkCard:hover .artworkArrow {
+  color: var(--ink);
+  background: white;
+}
+
+.artworkCaption {
+  padding: 13px 1px 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.artworkCaption h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.artworkCaption span {
+  color: var(--muted);
+  font-size: 9px;
+  text-align: right;
+}
+
+.membership {
+  width: min(100% - 88px, 1080px);
+  margin: 0 auto;
+  padding: 73px 0 78px;
+  display: grid;
+  grid-template-columns: 0.86fr 1.14fr;
+  gap: 90px;
+}
+
+.membershipIntro h2 {
+  margin-top: 14px;
+  font-size: 43px;
+  line-height: 1.08;
+}
+
+.membershipIntro > p:last-child {
+  max-width: 325px;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.membershipList {
+  align-self: center;
+  border-top: 1px solid var(--line);
+}
+
+.membershipItem {
+  min-height: 78px;
+  display: grid;
+  grid-template-columns: 37px 1fr 20px;
+  align-items: center;
+  gap: 13px;
+  border-bottom: 1px solid var(--line);
+}
+
+.membershipMark {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #dfd3c7;
+  border-radius: 50%;
+  color: var(--accent);
+  font-size: 15px;
+}
+
+.membershipItem h3 {
+  margin: 0 0 5px;
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.membershipItem p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.membershipArrow {
+  color: var(--accent);
+  font-size: 13px;
+}
+
+.footer {
+  min-height: 86px;
+  padding: 18px max(44px, calc((100vw - 1280px) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: #f8f5ef;
+  background: #662d26;
+}
+
+.footerWordmark {
+  font-family: var(--serif);
+  font-size: 19px;
+  letter-spacing: -0.04em;
+}
+
+.footer p {
+  margin: 0;
+  color: #e2cfc2;
+  font-family: var(--serif);
+  font-size: 14px;
+  font-style: italic;
+}
+
+.footer > a:last-child {
+  font-size: 10px;
+}
+
+@media (min-width: 1500px) {
+  .profile {
+    min-height: 590px;
+  }
+
+  .profileImageWrap {
+    height: 435px;
+  }
+}
+
+@media (max-width: 760px) {
+  .header {
+    width: calc(100% - 40px);
+    height: 73px;
+  }
+
+  .nav {
+    gap: 18px;
+    font-size: 11px;
+  }
+
+  .nav a:last-child,
+  .headerLink {
+    display: none;
+  }
+
+  .profile {
+    width: calc(100% - 48px);
+    min-height: 0;
+    padding: 42px 0 63px;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+    gap: 34px;
+  }
+
+  .profileImageWrap {
+    height: 330px;
+  }
+
+  .profile h1 {
+    font-size: clamp(46px, 8vw, 66px);
+  }
+
+  .profileIntro {
+    font-size: 17px;
+  }
+
+  .profileMeta {
+    gap: 10px;
+  }
+
+  .profileActions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .workSection {
+    padding: 49px 24px 57px;
+  }
+
+  .artworkGrid {
+    gap: 13px;
+  }
+
+  .artworkCaption {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .artworkCaption span {
+    text-align: left;
+  }
+
+  .membership {
+    width: calc(100% - 48px);
+    padding: 58px 0;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 34px;
+  }
+}
+
+@media (max-width: 540px) {
+  .header {
+    width: calc(100% - 32px);
+    height: 67px;
+  }
+
+  .wordmark strong {
+    font-size: 16px;
+  }
+
+  .wordmark small {
+    font-size: 7px;
+  }
+
+  .wordmarkIcon {
+    width: 33px;
+    height: 33px;
+  }
+
+  .nav {
+    gap: 15px;
+    font-size: 10px;
+  }
+
+  .nav a:nth-child(2) {
+    display: none;
+  }
+
+  .profile {
+    width: calc(100% - 40px);
+    padding: 30px 0 51px;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .profileImageWrap {
+    height: 300px;
+    max-width: none;
+  }
+
+  .profileImage {
+    object-position: center 35%;
+  }
+
+  .imageNote {
+    right: -8px;
+    bottom: 17px;
+  }
+
+  .profile h1 {
+    margin-top: 17px;
+    font-size: 62px;
+  }
+
+  .profileMeta {
+    font-size: 9px;
+  }
+
+  .profileActions {
+    flex-direction: row;
+    align-items: center;
+    gap: 17px;
+  }
+
+  .primaryButton {
+    padding: 0 12px;
+    gap: 12px;
+    font-size: 9px;
+  }
+
+  .profileIndex {
+    bottom: 20px;
+  }
+
+  .workSection {
+    padding: 42px 20px 47px;
+  }
+
+  .sectionHeading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 17px;
+  }
+
+  .sectionHeading h2 {
+    font-size: 34px;
+  }
+
+  .artworkGrid {
+    grid-template-columns: 1fr;
+    gap: 23px;
+  }
+
+  .artworkImage {
+    height: 245px;
+  }
+
+  .artworkCaption {
+    flex-direction: row;
+  }
+
+  .membership {
+    width: calc(100% - 40px);
+    padding: 49px 0;
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .membershipIntro h2 {
+    font-size: 39px;
+  }
+
+  .membershipItem {
+    min-height: 73px;
+    grid-template-columns: 34px 1fr 15px;
+    gap: 10px;
+  }
+
+  .membershipItem h3 {
+    font-size: 13px;
+  }
+
+  .footer {
+    min-height: 100px;
+    padding: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer p {
+    order: 1;
+    width: 100%;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .headerLink,
+  .nav a,
+  .primaryButton,
+  .artworkImage img,
+  .artworkArrow {
+    transition: none;
+  }
+}

@@ -1,0 +1,813 @@
+.page {
+  min-height: 100vh;
+  color: #28231f;
+  background: #f8f5ef;
+}
+
+.content {
+  width: min(100% - 88px, 1180px);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0;
+  color: #766f68;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  line-height: 1.6;
+}
+
+.title {
+  margin: 9px 0 12px;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: clamp(37px, 5vw, 58px);
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 1.02;
+}
+
+.title em {
+  color: #87362c;
+  font-weight: 400;
+}
+
+.lead {
+  max-width: 590px;
+  margin: 0;
+  color: #766f68;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.action {
+  min-height: 42px;
+  padding: 0 17px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border: 0;
+  color: #fffaf3;
+  background: #87362c;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.action:hover {
+  background: #65271f;
+}
+
+.outlineAction {
+  min-height: 39px;
+  padding: 0 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 1px solid #d9c8be;
+  color: #87362c;
+  background: transparent;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.panel {
+  border: 1px solid #e7ded3;
+  background: #fffdf9;
+}
+
+.commissionIntro {
+  padding: 38px 0 25px;
+}
+
+.crumb {
+  margin-bottom: 12px;
+  display: flex;
+  gap: 9px;
+  color: #766f68;
+  font-size: 9px;
+}
+
+.crumb a:hover {
+  color: #87362c;
+}
+
+.steps {
+  margin-bottom: 25px;
+  padding: 14px 18px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  border: 1px solid #e7ded3;
+  background: #fffdf9;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #92877c;
+  font-size: 9px;
+}
+
+.stepNumber {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #d7cdc2;
+  border-radius: 50%;
+  font-size: 9px;
+}
+
+.stepActive {
+  color: #87362c;
+}
+
+.stepActive .stepNumber {
+  border-color: #87362c;
+  color: #fffaf3;
+  background: #87362c;
+}
+
+.commissionGrid {
+  padding-bottom: 60px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  align-items: start;
+  gap: 22px;
+}
+
+.formStack {
+  display: grid;
+  gap: 15px;
+}
+
+.formCard {
+  padding: 22px;
+  border: 1px solid #e7ded3;
+  background: #fffdf9;
+}
+
+.formCardHeader {
+  margin-bottom: 17px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.formCardHeader h2,
+.summary h2,
+.simPanel h2 {
+  margin: 0;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.formCardHeader p {
+  margin: 5px 0 0;
+  color: #766f68;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.required {
+  padding: 4px 7px;
+  border-radius: 20px;
+  color: #87362c;
+  background: #f4e9e3;
+  font-size: 8px;
+  white-space: nowrap;
+}
+
+.choiceGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.choice {
+  min-height: 77px;
+  padding: 11px 8px;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 7px;
+  border: 1px solid #e7ded3;
+  color: #28231f;
+  background: #fffdf9;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.choice:hover,
+.choiceSelected {
+  border-color: #87362c;
+  background: #fbf3ee;
+}
+
+.choiceIcon {
+  color: #87362c;
+  font-size: 18px;
+}
+
+.choice strong {
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.choice small {
+  color: #766f68;
+  font-size: 8px;
+}
+
+.fieldLabel {
+  display: block;
+  margin: 15px 0 7px;
+  color: #514a44;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.field,
+.textarea,
+.select {
+  width: 100%;
+  min-height: 39px;
+  padding: 10px 11px;
+  border: 1px solid #e7ded3;
+  border-radius: 0;
+  color: #28231f;
+  background: #fffdf9;
+  font: inherit;
+  font-size: 10px;
+}
+
+.textarea {
+  min-height: 84px;
+  resize: vertical;
+}
+
+.dimensionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 11px;
+}
+
+.dimensionGrid .fieldLabel {
+  margin-top: 0;
+}
+
+.summary {
+  position: sticky;
+  top: 18px;
+  padding: 20px;
+  border: 1px solid #e7ded3;
+  background: #fffdf9;
+}
+
+.summaryArtist {
+  margin: 15px 0;
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid #e7ded3;
+  border-bottom: 1px solid #e7ded3;
+}
+
+.artistAvatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.summaryArtist strong,
+.summaryArtist small {
+  display: block;
+}
+
+.summaryArtist strong {
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.summaryArtist small {
+  margin-top: 3px;
+  color: #766f68;
+  font-size: 8px;
+}
+
+.summaryLine {
+  margin: 11px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: #766f68;
+  font-size: 9px;
+}
+
+.summaryLine strong {
+  color: #28231f;
+  font-size: 9px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.summaryTotal {
+  margin: 17px 0 10px;
+  padding-top: 13px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-top: 1px solid #e7ded3;
+}
+
+.summaryTotal span {
+  color: #766f68;
+  font-size: 9px;
+}
+
+.summaryTotal strong {
+  color: #87362c;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.note {
+  margin: 13px 0 0;
+  color: #766f68;
+  font-size: 8px;
+  line-height: 1.7;
+}
+
+.summary .action {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.discoverIntro {
+  padding: 47px 0 28px;
+  text-align: center;
+}
+
+.discoverIntro .lead {
+  margin: 0 auto;
+}
+
+.searchBar {
+  max-width: 760px;
+  min-height: 55px;
+  margin: 24px auto 0;
+  padding: 6px;
+  display: flex;
+  border: 1px solid #e7ded3;
+  background: #fffdf9;
+}
+
+.searchBar input {
+  min-width: 0;
+  flex: 1;
+  padding: 0 13px;
+  border: 0;
+  outline: 0;
+  color: #28231f;
+  background: transparent;
+  font: inherit;
+  font-size: 11px;
+}
+
+.searchBar button {
+  padding: 0 18px;
+  border: 0;
+  color: #fffaf3;
+  background: #87362c;
+  font: inherit;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.matchStrip {
+  margin: 0 0 33px;
+  padding: 13px 17px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border: 1px solid #eadbd0;
+  background: #f2e8df;
+}
+
+.matchStrip strong {
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.matchStrip p {
+  margin: 3px 0 0;
+  color: #766f68;
+  font-size: 9px;
+}
+
+.sectionTop {
+  margin: 0 0 16px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.sectionTop h2 {
+  margin: 0;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+.sectionTop a {
+  color: #87362c;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.featuredLayout {
+  margin-bottom: 41px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(230px, 0.75fr);
+  gap: 16px;
+}
+
+.featuredImage {
+  min-height: 235px;
+  position: relative;
+  overflow: hidden;
+  background: #ded4c9;
+}
+
+.featuredImage img,
+.workImage img,
+.simArtwork img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+}
+
+.featuredImage img {
+  object-position: center 60%;
+}
+
+.featuredBadge {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  padding: 6px 9px;
+  color: #fffaf3;
+  background: #87362c;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+}
+
+.featuredCopy {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  border: 1px solid #e7ded3;
+  background: #fffdf9;
+}
+
+.featuredCopy h3 {
+  margin: 7px 0;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: 23px;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.featuredCopy p {
+  margin: 0 0 13px;
+  color: #766f68;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.artistLine {
+  margin: 0 0 17px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #514a44;
+  font-size: 9px;
+}
+
+.miniAvatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.workGrid {
+  margin-bottom: 55px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.workCard {
+  overflow: hidden;
+  border: 1px solid #e7ded3;
+  background: #fffdf9;
+}
+
+.workImage {
+  height: 155px;
+  position: relative;
+  overflow: hidden;
+  background: #ded4c9;
+}
+
+.workInfo {
+  padding: 12px;
+}
+
+.workInfo h3 {
+  margin: 0;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.workInfo p {
+  margin: 5px 0 12px;
+  color: #766f68;
+  font-size: 8px;
+}
+
+.workInfo a {
+  color: #87362c;
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.studioIntro {
+  padding: 35px 0 24px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.studioStatus {
+  padding: 8px 10px;
+  border: 1px solid #cddbc7;
+  color: #537046;
+  background: #f0f5ed;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.simulator {
+  padding-bottom: 44px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  align-items: start;
+  gap: 17px;
+}
+
+.simStage {
+  min-height: 525px;
+  padding: 15px;
+  border: 1px solid #e7ded3;
+  background: #eee7de;
+}
+
+.simStageTop {
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #766f68;
+  font-size: 8px;
+  letter-spacing: 0.09em;
+}
+
+.room {
+  min-height: 463px;
+  padding: 41px 8% 0;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, transparent 49.8%, rgb(88 69 53 / 8%) 50%, transparent 50.2%),
+    linear-gradient(180deg, #e7d9ca 0 69%, #bcaa96 69% 71%, #cbb9a6 71% 100%);
+}
+
+.room::before {
+  width: 19%;
+  height: 64%;
+  position: absolute;
+  bottom: 31%;
+  left: 7%;
+  border: 8px solid #f2e8dc;
+  background: linear-gradient(90deg, #d7e3df, #f3e8d6);
+  box-shadow: 0 8px 18px rgb(40 35 31 / 12%);
+  content: "";
+}
+
+.room::after {
+  width: 72%;
+  height: 21%;
+  position: absolute;
+  right: 14%;
+  bottom: 6%;
+  border-radius: 50% 50% 0 0;
+  background: #ad8872;
+  content: "";
+}
+
+.simArtwork {
+  width: min(45%, 315px);
+  aspect-ratio: 0.88;
+  position: relative;
+  z-index: 1;
+  padding: 11px;
+  background: #f8f4ec;
+  box-shadow: 0 12px 32px rgb(40 35 31 / 18%);
+}
+
+.simArtwork img {
+  position: static;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #d4c9bb;
+}
+
+.simPanel {
+  padding: 18px;
+  border: 1px solid #e7ded3;
+  background: #fffdf9;
+}
+
+.simPanel > p {
+  margin: 5px 0 17px;
+  color: #766f68;
+  font-size: 9px;
+  line-height: 1.6;
+}
+
+.simControl {
+  margin: 14px 0;
+  padding-top: 13px;
+  border-top: 1px solid #e7ded3;
+}
+
+.simControl label,
+.controlLabel {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  color: #514a44;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.swatches {
+  display: flex;
+  gap: 8px;
+}
+
+.swatch {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #fffdf9;
+  border-radius: 50%;
+  outline: 1px solid #d9cfc3;
+  cursor: pointer;
+}
+
+.swatchActive {
+  outline: 2px solid #87362c;
+}
+
+.range {
+  width: 100%;
+  accent-color: #87362c;
+}
+
+.simPanel .action {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .content {
+    width: calc(100% - 48px);
+  }
+
+  .commissionGrid,
+  .simulator {
+    grid-template-columns: minmax(0, 1fr) 250px;
+  }
+
+  .workGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .workImage {
+    height: 190px;
+  }
+}
+
+@media (max-width: 650px) {
+  .content {
+    width: calc(100% - 36px);
+  }
+
+  .commissionIntro {
+    padding-top: 28px;
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .commissionGrid,
+  .simulator,
+  .featuredLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    position: static;
+    grid-row: 1;
+  }
+
+  .choiceGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .discoverIntro {
+    padding-top: 34px;
+  }
+
+  .matchStrip {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .featuredImage {
+    min-height: 220px;
+  }
+
+  .workGrid {
+    gap: 10px;
+  }
+
+  .workImage {
+    height: 140px;
+  }
+
+  .studioIntro {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .simStage {
+    min-height: 360px;
+  }
+
+  .room {
+    min-height: 315px;
+  }
+
+  .simArtwork {
+    width: min(58%, 250px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action,
+  .outlineAction {
+    transition: none;
+  }
+}
