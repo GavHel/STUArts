@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "@/components/site-header";
+import { DiscoverGallery, type Artwork } from "./discover-gallery";
 import styles from "../experience.module.css";
 
 export const metadata: Metadata = {
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
   description: "Explore original work and meet emerging artists in Calgary.",
 };
 
-const works = [
+const works: Artwork[] = [
   {
     title: "A quieter kind of morning",
     artist: "Maya Linnea Chen",
@@ -60,23 +61,15 @@ export default function DiscoverPage() {
             Meet the artists behind the work. Find something that feels like
             you, then bring it home.
           </p>
-          <form className={styles.searchBar} action="/discover">
-            <input
-              aria-label="Search artists, artwork, and mediums"
-              name="q"
-              placeholder="Search artists, artwork, or a medium..."
-            />
-            <button type="submit">Find your art ↗</button>
-          </form>
         </section>
 
         <section className={styles.matchStrip}>
           <div>
-            <strong>Find your creative match in under 60 seconds.</strong>
-            <p>A few thoughtful questions. One very personal shortlist.</p>
+            <strong>Find the piece that feels like you.</strong>
+            <p>Browse original work from Calgary&apos;s student artists.</p>
           </div>
-          <a className={styles.action} href="#featured">
-            Find my match <span aria-hidden="true">→</span>
+          <a className={styles.action} href="#all-work">
+            Browse artworks <span aria-hidden="true">→</span>
           </a>
         </section>
 
@@ -100,7 +93,7 @@ export default function DiscoverPage() {
             </div>
             <div className={styles.featuredCopy}>
               <p className={styles.eyebrow}>PAINTING · CERAMICS · MIXED MEDIA</p>
-              <h3>Find your creative match in under 60 seconds.</h3>
+              <h3>A quieter kind of morning.</h3>
               <p>
                 A multidisciplinary artist exploring memory, belonging, and the
                 quiet poetry of everyday life.
@@ -122,36 +115,7 @@ export default function DiscoverPage() {
           </article>
         </section>
 
-        <section>
-          <div className={styles.sectionTop}>
-            <div>
-              <p className={styles.eyebrow}>A LITTLE OF EVERYTHING</p>
-              <h2>Artworks to get lost in</h2>
-            </div>
-            <a href="#all-work">Browse all work ↗</a>
-          </div>
-          <div className={styles.workGrid} id="all-work">
-            {works.map((work) => (
-              <article className={styles.workCard} key={work.title}>
-                <div className={styles.workImage}>
-                  <Image
-                    src={work.image}
-                    alt={work.alt}
-                    fill
-                    sizes="(max-width: 650px) 45vw, (max-width: 900px) 45vw, 25vw"
-                  />
-                </div>
-                <div className={styles.workInfo}>
-                  <h3>{work.title}</h3>
-                  <p>
-                    {work.medium} <span>·</span> {work.artist}
-                  </p>
-                  <Link href="/">Meet the artist ↗</Link>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
+        <DiscoverGallery works={works} />
       </div>
       <SiteFooter />
     </main>

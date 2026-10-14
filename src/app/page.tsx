@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { SiteFooter, SiteHeader } from "@/components/site-header";
 import styles from "./page.module.css";
 
@@ -72,9 +73,9 @@ export default function Home() {
             <span>◷ &nbsp; Class of 2026</span>
           </div>
           <div className={styles.profileActions}>
-            <a className={styles.primaryButton} href="mailto:maya.chen@example.com">
+            <Link className={styles.primaryButton} href="/commission">
               Start a conversation <span aria-hidden="true">↗</span>
-            </a>
+            </Link>
             <a className={styles.textLink} href="#work">
               Explore my work <span aria-hidden="true">↓</span>
             </a>
@@ -93,9 +94,9 @@ export default function Home() {
               Selected <em>work</em>
             </h2>
           </div>
-          <a className={styles.textLink} href="mailto:maya.chen@example.com">
+          <Link className={styles.textLink} href="/discover">
             View full portfolio <span aria-hidden="true">↗</span>
-          </a>
+          </Link>
         </div>
         <div className={styles.artworkGrid}>
           {artworks.map((artwork, index) => (
