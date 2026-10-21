@@ -1,5 +1,27 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Commission request storage
+
+Commission requests are submitted to a server-side Route Handler and stored in
+Supabase. The service-role credential is only read by the server and must never
+be prefixed with `NEXT_PUBLIC_` or used in browser code.
+
+1. Create a Supabase project.
+2. Run `supabase/migrations/20261021000000_create_commission_requests.sql` in
+   the Supabase SQL Editor.
+3. Copy `.env.example` to `.env.local`. Set `NEXT_PUBLIC_SUPABASE_URL` and
+   `SUPABASE_SERVICE_ROLE_KEY` from the Supabase project settings. The project
+   URL may use the public prefix; the service-role key must not.
+4. Restart `npm run dev` and submit the commission form at
+   [http://localhost:3000/commission](http://localhost:3000/commission).
+
+The endpoint recalculates estimates on the server and exposes insert access
+only through the server-side credential. Row-level security is enabled and
+public/authenticated table access is revoked. The current prototype saves
+requests but does not yet notify the artist or provide an admin interface;
+add abuse controls such as rate limiting before opening the endpoint to a
+public launch.
+
 ## Getting Started
 
 First, run the development server:

@@ -395,6 +395,11 @@
   cursor: default;
 }
 
+.formActions .action:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
 .formActions button:not(:disabled):hover,
 .outlineAction:hover {
   background: #fbf3ee;
@@ -461,6 +466,22 @@
   color: #766f68;
   line-height: 1.7;
   white-space: pre-wrap;
+}
+
+.submissionSuccess {
+  margin-top: 18px;
+  padding: 15px;
+  border: 1px solid #cddbc7;
+  color: #3e5d34;
+  background: #f0f5ed;
+  font-size: 11px;
+}
+
+.submissionSuccess p {
+  margin: 5px 0 0;
+  color: #53664c;
+  font-size: 10px;
+  line-height: 1.65;
 }
 
 .reviewBrief + .note {

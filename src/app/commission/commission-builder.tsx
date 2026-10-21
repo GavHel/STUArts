@@ -56,6 +56,9 @@ export function CommissionBuilder() {
   const [step, setStep] = useState(0);
   const [reviewing, setReviewing] = useState(false);
   const [error, setError] = useState("");
+  const [submissionError, setSubmissionError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const selectedMedium = mediums.find((medium) => medium.title === form.medium) ?? mediums[0];
   const width = Number(form.width);
@@ -132,25 +135,55 @@ export function CommissionBuilder() {
     if (validateStep()) setReviewing(true);
   }
 
-  const summary = [
-    `Artist: Maya Linnea Chen`,
-    `Artwork type: ${form.medium}`,
-    `Placement: ${form.placement}`,
-    `Size: ${
-      dimensionsProvided
-        ? `${form.width} × ${form.height} ${form.units}`
-        : form.scale || "Not specified"
-    }`,
-    `Estimated total: ${formatPrice(total)} CAD`,
-    `Estimated studio time: ${studioTime}`,
-    `Ideal delivery date: ${form.delivery || "Flexible"}`,
-    `Inspiration: ${form.inspiration || "None provided"}`,
-    `Project idea: ${form.brief || "Not provided"}`,
-    `From: ${form.name} (${form.email})`,
-  ].join("\n");
-  const emailHref = `mailto:maya.chen@example.com?subject=${encodeURIComponent(
-    "Artwork commission request",
-  )}&body=${encodeURIComponent(summary)}`;
+  async function submitRequest() {
+    setIsSubmitting(true);
+    setSubmissionError("");
+    try {
+      const response = await fetch("/api/commission-requests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          medium: form.medium,
+          placement: form.placement,
+          brief: form.brief,
+          width: dimensionsProvided ? width : null,
+          height: dimensionsProvided ? height : null,
+          units: form.units,
+          scale: dimensionsProvided ? null : form.scale,
+          inspiration: form.inspiration,
+          delivery: form.delivery,
+          name: form.name,
+          email: form.email,
+        }),
+      });
+      const result: unknown = await response.json();
+      if (
+        !response.ok ||
+        typeof result !== "object" ||
+        result === null ||
+        !("ok" in result) ||
+        result.ok !== true
+      ) {
+        const message =
+          typeof result === "object" &&
+          result !== null &&
+          "error" in result &&
+          typeof result.error === "string"
+            ? result.error
+            : "We could not save your request. Please try again.";
+        throw new Error(message);
+      }
+      setSubmitted(true);
+    } catch (caught) {
+      setSubmissionError(
+        caught instanceof Error
+          ? caught.message
+          : "We could not save your request. Please try again.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   return (
     <>
@@ -186,8 +219,8 @@ export function CommissionBuilder() {
             <p className={styles.eyebrow}>ONE LAST LOOK</p>
             <h2 className={styles.reviewTitle}>Your commission request</h2>
             <p className={styles.reviewLead}>
-              Check the details before opening an email to Maya. Your estimate is
-              a starting point, not a final quote.
+              Check the details before submitting. Your estimate is a starting
+              point, not a final quote.
             </p>
             <dl className={styles.reviewList}>
               <div><dt>Artwork</dt><dd>{form.medium}</dd></div>
@@ -210,18 +243,44 @@ export function CommissionBuilder() {
                 <p>{form.brief}</p>
               </div>
             )}
-            <p className={styles.note}>
-              This layout does not send or store requests. The button opens your
-              email app with these details ready to send.
-            </p>
-            <div className={styles.formActions}>
-              <button className={styles.outlineAction} type="button" onClick={() => setReviewing(false)}>
-                ← Edit request
-              </button>
-              <a className={styles.action} href={emailHref}>
-                Open email to Maya <span aria-hidden="true">↗</span>
-              </a>
-            </div>
+            {submitted ? (
+              <div className={styles.submissionSuccess} role="status">
+                <strong>Your request has been saved.</strong>
+                <p>
+                  The request is in the database. Artist email notifications
+                  aren&apos;t configured yet.
+                </p>
+              </div>
+            ) : (
+              <>
+                <p className={styles.note}>
+                  Your contact details will be stored with this request so the
+                  artist can follow up when request management is available.
+                </p>
+                {submissionError && (
+                  <p className={styles.formError} role="alert">{submissionError}</p>
+                )}
+                <div className={styles.formActions}>
+                  <button
+                    className={styles.outlineAction}
+                    disabled={isSubmitting}
+                    onClick={() => setReviewing(false)}
+                    type="button"
+                  >
+                    ← Edit request
+                  </button>
+                  <button
+                    className={styles.action}
+                    disabled={isSubmitting}
+                    onClick={submitRequest}
+                    type="button"
+                  >
+                    {isSubmitting ? "Saving request…" : "Submit request"}
+                    {!isSubmitting && <span aria-hidden="true">→</span>}
+                  </button>
+                </div>
+              </>
+            )}
           </section>
         ) : (
           <div className={styles.formStack}>
