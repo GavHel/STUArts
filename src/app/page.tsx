@@ -1,34 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SiteFooter, SiteHeader } from "@/components/site-header";
+import { ArtistArtworkGallery } from "./artist-artwork-gallery";
 import styles from "./page.module.css";
-
-const artworks = [
-  {
-    title: "A quieter kind of morning",
-    category: "Oil on canvas · 2025",
-    style: styles.artworkOne,
-    image:
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=85",
-    alt: "Soft morning light falling across a mountain lake",
-  },
-  {
-    title: "Things we carry",
-    category: "Mixed media · 2024",
-    style: styles.artworkTwo,
-    image:
-      "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=1000&q=85",
-    alt: "Colorful contemporary painting in a gallery",
-  },
-  {
-    title: "The space between",
-    category: "Ceramics · 2024",
-    style: styles.artworkThree,
-    image:
-      "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1000&q=85",
-    alt: "Handmade sculptural ceramic vessels",
-  },
-];
 
 export default function Home() {
   return (
@@ -98,28 +72,7 @@ export default function Home() {
             View full portfolio <span aria-hidden="true">↗</span>
           </Link>
         </div>
-        <div className={styles.artworkGrid}>
-          {artworks.map((artwork, index) => (
-            <article className={styles.artworkCard} key={artwork.title}>
-              <div className={`${styles.artworkImage} ${artwork.style}`}>
-                <Image
-                  src={artwork.image}
-                  alt={artwork.alt}
-                  fill
-                  sizes="(max-width: 540px) calc(100vw - 40px), (max-width: 760px) 30vw, 350px"
-                />
-                <span className={styles.artworkNumber}>0{index + 1}</span>
-                <span className={styles.artworkArrow} aria-hidden="true">
-                  ↗
-                </span>
-              </div>
-              <div className={styles.artworkCaption}>
-                <h3>{artwork.title}</h3>
-                <span>{artwork.category}</span>
-              </div>
-            </article>
-          ))}
-        </div>
+        <ArtistArtworkGallery />
       </section>
 
       <section className={styles.membership} id="membership">

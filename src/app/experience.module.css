@@ -742,7 +742,8 @@
   font-size: 8px;
 }
 
-.workInfo a {
+.workInfo a,
+.profilePending {
   color: #87362c;
   font-size: 8px;
   font-weight: 600;

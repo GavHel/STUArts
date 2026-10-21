@@ -15,6 +15,7 @@ const works: Artwork[] = [
     title: "A quieter kind of morning",
     artist: "Maya Linnea Chen",
     medium: "Oil on canvas",
+    profileHref: "/",
     image:
       "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=700&q=80",
     alt: "Mountain lake artwork",
@@ -23,6 +24,7 @@ const works: Artwork[] = [
     title: "Things we carry",
     artist: "Maya Linnea Chen",
     medium: "Mixed media",
+    profileHref: "/",
     image:
       "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=700&q=80",
     alt: "Expressive floral painting",

@@ -11,6 +11,7 @@ export type Artwork = {
   medium: string;
   image: string;
   alt: string;
+  profileHref?: string;
 };
 
 type DiscoverGalleryProps = {
@@ -101,7 +102,11 @@ export function DiscoverGallery({ works }: DiscoverGalleryProps) {
               <div className={styles.workInfo}>
                 <h3>{work.title}</h3>
                 <p>{work.medium} <span>·</span> {work.artist}</p>
-                <Link href="/">Meet the artist ↗</Link>
+                {work.profileHref ? (
+                  <Link href={work.profileHref}>Meet the artist ↗</Link>
+                ) : (
+                  <span className={styles.profilePending}>Artist profile coming soon</span>
+                )}
               </div>
             </article>
           ))}

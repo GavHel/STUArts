@@ -463,7 +463,7 @@ export function CommissionBuilder() {
                   <div className={styles.formCardHeader}>
                     <div>
                       <h2>How can Maya reach you?</h2>
-                      <p>Your details will be included in the email draft.</p>
+                      <p>Your details will be saved with your request so Maya can follow up.</p>
                     </div>
                     <span className={styles.required}>REQUIRED</span>
                   </div>
