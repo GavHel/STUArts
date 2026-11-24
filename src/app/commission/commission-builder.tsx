@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import styles from "../experience.module.css";
 
@@ -201,7 +202,7 @@ export function CommissionBuilder({ artistSlug, artistName }: { artistSlug: stri
               }
             }}
             aria-current={step === index ? "step" : undefined}
-            disabled={index > step}
+            disabled={isSubmitting || submitted || index > step}
           >
             <span className={styles.stepNumber}>{index < step ? "✓" : index + 1}</span>
             {label}
@@ -251,6 +252,7 @@ export function CommissionBuilder({ artistSlug, artistName }: { artistSlug: stri
                   It is now in the STUArts admin inbox. Email notifications
                   aren&apos;t configured yet.
                 </p>
+                <Link href={`/artists/${artistSlug}`}>Back to {artistName}&apos;s profile →</Link>
               </div>
             ) : (
               <>

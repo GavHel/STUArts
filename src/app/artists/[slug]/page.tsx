@@ -53,7 +53,6 @@ async function ArtistProfile({ params }: ArtistPageProps) {
   const artist = result.artist;
   const commissionParams = new URLSearchParams({
     artist: artist.slug,
-    artistName: artist.display_name,
   });
   const works: Artwork[] = result.artworks.map((artwork) => ({
     id: artwork.id,
@@ -62,7 +61,6 @@ async function ArtistProfile({ params }: ArtistPageProps) {
     medium: artwork.medium,
     image: artwork.image_url,
     alt: artwork.image_alt,
-    profileHref: `/artists/${artist.slug}`,
     description: artwork.description,
     year: artwork.year,
     priceCad: artwork.price_cad,
@@ -119,7 +117,7 @@ async function ArtistProfile({ params }: ArtistPageProps) {
       </section>
 
       {works.length ? (
-        <DiscoverGallery works={works} />
+        <DiscoverGallery works={works} showArtistLinks={false} />
       ) : (
         <p className={experienceStyles.emptyResults} role="status">
           {artist.display_name} hasn&apos;t published any artwork yet.

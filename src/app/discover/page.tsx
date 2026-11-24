@@ -122,7 +122,7 @@ async function CatalogSections() {
   const featuredArtist = catalog.artists[0];
   if (!featuredArtist) {
     return (
-      <p className={styles.emptyResults} role="status">
+      <p className={styles.emptyResults} id="all-work" role="status">
         No artists have published a profile yet. Check back soon.
       </p>
     );

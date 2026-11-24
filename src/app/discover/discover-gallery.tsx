@@ -20,11 +20,12 @@ export type Artwork = {
 
 type DiscoverGalleryProps = {
   works: Artwork[];
+  showArtistLinks?: boolean;
 };
 
 const categories = ["All work", "Painting", "Ceramics", "Photography", "Mixed media"];
 
-export function DiscoverGallery({ works }: DiscoverGalleryProps) {
+export function DiscoverGallery({ works, showArtistLinks = true }: DiscoverGalleryProps) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All work");
 
@@ -122,11 +123,11 @@ export function DiscoverGallery({ works }: DiscoverGalleryProps) {
                     }).format(work.priceCad)}
                   </strong>
                 ) : null}
-                {work.profileHref ? (
+                {showArtistLinks && (work.profileHref ? (
                   <Link href={work.profileHref}>Meet the artist ↗</Link>
                 ) : (
                   <span className={styles.profilePending}>Artist profile coming soon</span>
-                )}
+                ))}
               </div>
             </article>
           ))}

@@ -59,7 +59,7 @@ and uploads whose database save fails may remain in the private storage bucket.
 npm run lint
 npm run build
 npm audit --omit=dev
-node --experimental-strip-types --test tests/artwork-image-validation.test.mjs tests/artwork-upload-routes.test.mjs tests/wall-artwork-model.test.mjs
+node --experimental-strip-types --test tests/artwork-image-validation.test.mjs tests/artwork-upload-routes.test.mjs tests/wall-artwork-model.test.mjs tests/discover-gallery.test.mjs
 ```
 
 The studio includes the original sample room preview and an experimental
