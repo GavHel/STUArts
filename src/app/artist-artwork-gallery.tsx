@@ -102,7 +102,9 @@ export function ArtistArtworkGallery({ artworks }: { artworks: GalleryArtwork[] 
             onClick={() => scrollToArtwork(Math.max(0, activeIndex - 1))}
             type="button"
           >
-            ←
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M20 12H4M10 6l-6 6 6 6" />
+            </svg>
           </button>
           <button
             aria-label="Next artwork"
@@ -111,7 +113,9 @@ export function ArtistArtworkGallery({ artworks }: { artworks: GalleryArtwork[] 
             onClick={() => scrollToArtwork(Math.min(artworks.length - 1, activeIndex + 1))}
             type="button"
           >
-            →
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M4 12h16M14 6l6 6-6 6" />
+            </svg>
           </button>
         </div>
       </div>
