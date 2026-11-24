@@ -46,7 +46,12 @@ profile. The request is assigned to that artist.
 
 Commission requests are stored in Supabase and appear in the admin inbox.
 Artist responses appear in the customer's account. Email notifications are
-not configured. Artists and admins can upload JPEG, PNG, or WebP artwork images
+not configured. Artists and admins see unread commission notifications on My
+Account and in their workspaces. Notifications are checked while the page is
+open, and marking one read affects only that account and workspace. Existing
+requests initially appear unread; the newest 20 are shown at a time. Run the
+commission notification migration before enabling this feature.
+Artists and admins can upload JPEG, PNG, or WebP artwork images
 up to 5 MiB, or continue to use an HTTP/HTTPS image URL. Run the artwork upload
 migration to create its private Supabase Storage bucket. An uploaded image is
 publicly accessible only while both its artwork and artist are published;
@@ -59,7 +64,7 @@ and uploads whose database save fails may remain in the private storage bucket.
 npm run lint
 npm run build
 npm audit --omit=dev
-node --experimental-strip-types --test tests/artwork-image-validation.test.mjs tests/artwork-upload-routes.test.mjs tests/wall-artwork-model.test.mjs tests/discover-gallery.test.mjs
+node --experimental-strip-types --test tests/artwork-image-validation.test.mjs tests/artwork-upload-routes.test.mjs tests/wall-artwork-model.test.mjs tests/discover-gallery.test.mjs tests/commission-notifications.test.mjs
 ```
 
 The studio includes the original sample room preview and an experimental

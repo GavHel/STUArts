@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import type { Artist, Artwork, CommissionRequest } from "@/lib/supabase/database.types";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { ArtworkImageUpload, artworkRequestBody, imageFileError, useArtworkImage } from "../artwork-image-upload";
+import { CommissionNotifications } from "../commission-notifications";
 import styles from "./admin.module.css";
 
 type DashboardData = {
@@ -286,7 +287,8 @@ export function AdminDashboard() {
 
       {data && (
         <>
-          <div className={styles.tabs} role="tablist" aria-label="Admin sections">
+          <CommissionNotifications audience="admin" inboxHref="#commission-inbox" onOpenInbox={() => setTab("Requests")} />
+          <div className={styles.tabs} id="commission-inbox" role="tablist" aria-label="Admin sections">
             {tabs.map((item) => (
               <button
                 aria-pressed={tab === item}

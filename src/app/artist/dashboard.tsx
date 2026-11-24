@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import type { Artist, Artwork, CommissionRequest } from "@/lib/supabase/database.types";
 import { ArtworkImageUpload, artworkRequestBody, imageFileError, useArtworkImage } from "../artwork-image-upload";
+import { CommissionNotifications } from "../commission-notifications";
 import styles from "../admin/admin.module.css";
 
 type ArtistProfile = Pick<
@@ -276,9 +277,7 @@ export function ArtistDashboard() {
       {error && <p className={styles.error} role="alert">{error}</p>}
       {message && <p className={styles.success} role="status">{message}</p>}
       {data && (
-        <p className={styles.notice}>
-          <a href="#commission-requests">View commission requests ({data.requests.length}) ↓</a>
-        </p>
+        <CommissionNotifications audience="artist" inboxHref="#commission-requests" />
       )}
       {!data && error.includes("not linked") ? (
         <p className={styles.notice}>

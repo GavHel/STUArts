@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Artist, CommissionRequest } from "@/lib/supabase/database.types";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { CommissionNotifications } from "../commission-notifications";
 import styles from "../admin/admin.module.css";
 
 type AccountRequest = Pick<
@@ -120,6 +121,9 @@ export function AccountDashboard() {
       </div>
 
       {error && <p className={styles.error} role="alert">{error}</p>}
+
+      {data?.is_admin ? <CommissionNotifications audience="admin" inboxHref="/admin#commission-inbox" /> : null}
+      {data?.artist ? <CommissionNotifications audience="artist" inboxHref="/artist#commission-requests" /> : null}
 
       {data?.is_admin && (
         <section className={`${styles.panel} ${styles.accountWorkspacePanel}`}>

@@ -76,6 +76,11 @@ type Mutable<T> = Omit<T, "id" | "created_at" | "updated_at">;
 export type Database = {
   public: {
     Tables: {
+      commission_notification_reads: Table<
+        { user_id: string; request_id: string; audience: "admin" | "artist"; read_at: string },
+        { user_id: string; request_id: string; audience: "admin" | "artist"; read_at?: string },
+        { read_at?: string }
+      >;
       artists: Table<
         Artist,
         Mutable<Artist> &
@@ -126,7 +131,12 @@ export type Database = {
       >;
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      unread_commission_notifications: {
+        Args: { target_user: string; target_audience: string; target_artist_slug: string | null };
+        Returns: { request_id: string; artist_slug: string; medium: string; created_at: string; unread_count: number }[];
+      };
+    };
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;
   };
