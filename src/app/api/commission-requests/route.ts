@@ -1,6 +1,8 @@
 import "server-only";
 
 import { createClient } from "@supabase/supabase-js";
+import { SupabaseConfigError } from "@/lib/supabase/config";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const MAX_BODY_BYTES = 16 * 1024;
 const MAX_DIMENSION = 200;
@@ -30,6 +32,7 @@ type Placement = (typeof placements)[number];
 type ScaleGuide = (typeof scaleGuides)[number];
 
 type CommissionSubmission = {
+  artistSlug: string;
   medium: Medium;
   placement: Placement;
   brief: string | null;
@@ -95,6 +98,15 @@ function readOptionalDate(value: unknown): string | null {
 function validateSubmission(value: unknown): CommissionSubmission {
   if (!isRecord(value)) {
     throw new RequestValidationError("The request body must be a JSON object.");
+  }
+
+  const artistSlug = readText(
+    value.artist_slug,
+    "Artist",
+    80,
+  );
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(artistSlug)) {
+    throw new RequestValidationError("Choose a valid artist.");
   }
 
   const mediumValue = value.medium;
@@ -163,6 +175,7 @@ function validateSubmission(value: unknown): CommissionSubmission {
   }
 
   return {
+    artistSlug,
     medium: mediumValue as Medium,
     placement: placementValue as Placement,
     brief: brief || null,
@@ -276,8 +289,37 @@ export async function POST(request: Request) {
     const supabase = createClient(supabaseUrl, serviceRoleKey, {
       auth: { autoRefreshToken: false, persistSession: false },
     });
+    let customerUserId: string | null = null;
+    try {
+      const authClient = await createSupabaseServerClient();
+      const { data, error: claimsError } = await authClient.auth.getClaims();
+      if (!claimsError && typeof data?.claims?.sub === "string") {
+        customerUserId = data.claims.sub;
+      }
+    } catch (error) {
+      if (!(error instanceof SupabaseConfigError)) throw error;
+    }
+
+    const { data: artist, error: artistError } = await supabase
+      .from("artists")
+      .select("id")
+      .eq("slug", submission.artistSlug)
+      .eq("is_published", true)
+      .maybeSingle();
+    if (artistError) {
+      console.error("Unable to verify commission artist.", artistError);
+      return Response.json(
+        { error: "We could not verify this artist. Please try again later." },
+        { status: 503 },
+      );
+    }
+    if (!artist) {
+      return Response.json({ error: "Choose a published artist." }, { status: 400 });
+    }
+
     const { error } = await supabase.from("commission_requests").insert({
-      artist_slug: "maya-linnea-chen",
+      artist_slug: submission.artistSlug,
+      customer_user_id: customerUserId,
       medium: submission.medium,
       placement: submission.placement,
       project_brief: submission.brief,

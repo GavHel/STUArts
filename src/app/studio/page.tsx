@@ -1,11 +1,15 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { connection } from "next/server";
 import { SiteFooter, SiteHeader } from "@/components/site-header";
+import { getPublishedCatalog } from "@/lib/catalog";
+import { WallPreview } from "./wall-preview";
 import { SimulatorControls } from "./simulator-controls";
 import styles from "../experience.module.css";
 
 export const metadata: Metadata = {
-  title: "Visual Spatial Simulator | StartUArts",
+  title: "Visual Spatial Simulator | STUArts",
   description: "Preview how original art could look and feel in your space.",
 };
 
@@ -35,9 +39,26 @@ export default function StudioPage() {
           </span>
         </section>
 
+        <Suspense fallback={<p className={styles.note} role="status">Loading published artwork...</p>}>
+          <PublishedWallPreview />
+        </Suspense>
         <SimulatorControls />
       </div>
       <SiteFooter />
     </main>
   );
+}
+
+async function PublishedWallPreview() {
+  await connection();
+  const catalog = await getPublishedCatalog();
+  if (catalog.status === "unavailable") {
+    return <p className={styles.note} role="status">The artwork catalog is unavailable. Try again later.</p>;
+  }
+  const artists = new Map(catalog.artists.map((artist) => [artist.id, artist.display_name]));
+  const artworks = catalog.artworks.flatMap((artwork) => {
+    const artist = artists.get(artwork.artist_id);
+    return artist ? [{ id: artwork.id, title: artwork.title, artist, image: artwork.image_url }] : [];
+  });
+  return <WallPreview artworks={artworks} />;
 }

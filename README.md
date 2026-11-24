@@ -1,58 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# STUArts
 
-## Commission request storage
+STUArts is a Next.js app for discovering student artists, previewing artwork,
+and submitting commission requests. The admin workspace is available at
+`/admin`.
 
-Commission requests are submitted to a server-side Route Handler and stored in
-Supabase. The service-role credential is only read by the server and must never
-be prefixed with `NEXT_PUBLIC_` or used in browser code.
+## Local setup
 
-1. Create a Supabase project.
-2. Run `supabase/migrations/20261021000000_create_commission_requests.sql` in
-   the Supabase SQL Editor.
-3. Copy `.env.example` to `.env.local`. Set `NEXT_PUBLIC_SUPABASE_URL` and
-   `SUPABASE_SERVICE_ROLE_KEY` from the Supabase project settings. The project
-   URL may use the public prefix; the service-role key must not.
-4. Restart `npm run dev` and submit the commission form at
-   [http://localhost:3000/commission](http://localhost:3000/commission).
+1. Install dependencies with `npm install`.
+2. Copy `.env.example` to `.env.local` and set:
+   - `NEXT_PUBLIC_SUPABASE_URL`: the Supabase project URL.
+   - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`: the project's publishable key.
+     The legacy `NEXT_PUBLIC_SUPABASE_ANON_KEY` is also accepted.
+   - `SUPABASE_SERVICE_ROLE_KEY`: the server-only service role key. Never add a
+     `NEXT_PUBLIC_` prefix to this value or commit it.
+   - `ADMIN_EMAILS`: comma-separated email addresses allowed into `/admin`.
+3. In the Supabase SQL Editor, run the migrations in
+   `supabase/migrations/` in filename order.
+4. Create an administrator account in Supabase Authentication and use the same
+   email in `ADMIN_EMAILS`. Enable email/password sign-ups if customers should
+   be able to create optional tracking accounts.
+5. Start the app with `npm run dev`, then visit `http://localhost:3000`.
 
-The endpoint recalculates estimates on the server and exposes insert access
-only through the server-side credential. Row-level security is enabled and
-public/authenticated table access is revoked. The current prototype saves
-requests but does not yet notify the artist or provide an admin interface;
-add abuse controls such as rate limiting before opening the endpoint to a
-public launch.
+## Accounts and workspaces
 
-## Getting Started
+Customers can optionally sign up and sign in at `/account/sign-up` and
+`/account/sign-in`. A commission request is linked to their account only when
+they submit it while signed in; guests can still submit requests.
 
-First, run the development server:
+Artists also create an account, then an admin links it to their profile by
+selecting the account email in the artist editor. Artists sign in through the
+same account page and open `/artist` to edit their profile and artwork, review
+assigned commission requests, and send a response. New artist artwork is saved
+as a draft; admins control publication.
+
+Sign in at `/admin/sign-in` for the admin workspace. Admins can view all
+commission requests, update statuses and private notes, and manage artist
+profiles and artwork. The regular sign-in page also links to admin sign-in,
+and signed-in admins can open the workspace from My Account. Admin access is
+restricted by `ADMIN_EMAILS`. Public
+read access is limited to published records; privileged database access stays
+server-side. Published artists and artwork appear on `/discover`, with an
+artist directory at `/` and an individual profile at `/artists/<slug>`.
+To start a commission, choose an artist and use the request link on their
+profile. The request is assigned to that artist.
+
+Commission requests are stored in Supabase and appear in the admin inbox.
+Artist responses appear in the customer's account. Email notifications are
+not configured. Artists and admins can upload JPEG, PNG, or WebP artwork images
+up to 5 MiB, or continue to use an HTTP/HTTPS image URL. Run the artwork upload
+migration to create its private Supabase Storage bucket. An uploaded image is
+publicly accessible only while both its artwork and artist are published;
+otherwise only the owning artist and admins can access it. Replaced uploads
+and uploads whose database save fails may remain in the private storage bucket.
+
+## Checks
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run build
+npm audit --omit=dev
+node --experimental-strip-types --test tests/artwork-image-validation.test.mjs tests/artwork-upload-routes.test.mjs tests/wall-artwork-model.test.mjs
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The studio includes the original sample room preview and an experimental
+camera-based wall preview for published artwork. A phone prepares its 3D model
+locally; it is not saved or uploaded. The selected width is approximate, not
+the artwork's actual size. Image URLs must allow cross-origin access for model
+generation. iPhone uses Safari and AR Quick Look, which can also offer floor
+placement; supported Android devices use WebXR and ARCore. Android Scene Viewer
+is not used because it cannot access browser-generated model URLs. Device and
+browser support varies, and real-device placement still needs verification.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To test on a phone on the same local network, start Next.js using the
+computer's local network IP address (replace the example address):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```powershell
+npm run dev -- --experimental-https --hostname 192.168.1.10
+```
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Next.js may download mkcert and request administrator permission to install a
+local certificate authority. Install only its **public** `rootCA.pem` on the
+phone and enable trust in iOS Settings > General > About > Certificate Trust
+Settings. Never share the CA private key. Then open
+`https://192.168.1.10:3000/studio` on the phone. The computer and phone must be
+on the same network, and local firewall settings may need to allow the dev
+server. This exposes the development server to that network; do not use an
+untrusted network. See the [Next.js local HTTPS guide](https://vercel.com/kb/guide/access-nextjs-localhost-https-certificate-self-signed)
+for details.

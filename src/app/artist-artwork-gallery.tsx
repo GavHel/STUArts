@@ -1,55 +1,20 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./page.module.css";
 
-const artworks = [
-  {
-    title: "A quieter kind of morning",
-    category: "Oil on canvas · 2025",
-    image:
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=85",
-    alt: "Soft morning light falling across a mountain lake",
-  },
-  {
-    title: "Things we carry",
-    category: "Mixed media · 2024",
-    image:
-      "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=1000&q=85",
-    alt: "Colorful contemporary painting in a gallery",
-  },
-  {
-    title: "The space between",
-    category: "Ceramics · 2024",
-    image:
-      "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1000&q=85",
-    alt: "Handmade sculptural ceramic vessels",
-  },
-  {
-    title: "A place to return to",
-    category: "Oil on canvas · 2025",
-    image:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=85",
-    alt: "Golden light across a quiet mountain landscape",
-  },
-  {
-    title: "Small arrangements",
-    category: "Still life · 2024",
-    image:
-      "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1000&q=85",
-    alt: "A loose arrangement of flowers in warm light",
-  },
-  {
-    title: "Blue hour study",
-    category: "Mixed media · 2023",
-    image:
-      "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1000&q=85",
-    alt: "Deep blue water and light at the shoreline",
-  },
-];
+type GalleryArtwork = {
+  id: string;
+  title: string;
+  category: string;
+  image: string;
+  alt: string;
+  profileHref: string;
+};
 
-export function ArtistArtworkGallery() {
+export function ArtistArtworkGallery({ artworks }: { artworks: GalleryArtwork[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const wheelTargetIndexRef = useRef(0);
   const wheelDeltaRef = useRef(0);
@@ -123,7 +88,7 @@ export function ArtistArtworkGallery() {
       track.removeEventListener("scroll", syncActiveIndex);
       if (wheelSyncTimeoutRef.current) clearTimeout(wheelSyncTimeoutRef.current);
     };
-  }, [scrollToArtwork, syncActiveIndex]);
+  }, [artworks.length, scrollToArtwork, syncActiveIndex]);
 
   return (
     <div className={styles.gallery}>
@@ -151,7 +116,7 @@ export function ArtistArtworkGallery() {
         </div>
       </div>
       <div
-        aria-label="Maya Linnea Chen's artwork. Use the scroll wheel, arrow keys, or controls to browse."
+        aria-label="Community artwork. Use the scroll wheel, arrow keys, or controls to browse."
         className={styles.artworkTrack}
         onKeyDown={(event) => {
           if (event.key === "ArrowRight") {
@@ -176,21 +141,22 @@ export function ArtistArtworkGallery() {
           <article
             aria-label={`${index + 1} of ${artworks.length}: ${artwork.title}`}
             className={styles.artworkCard}
-            key={artwork.title}
+            key={artwork.id}
             role="group"
           >
-            <div className={styles.artworkImage}>
+            <Link className={styles.artworkImage} href={artwork.profileHref} aria-label={`View the artist for ${artwork.title}`}>
               <Image
                 alt={artwork.alt}
                 fill
                 sizes="(max-width: 540px) calc(100vw - 40px), (max-width: 760px) 55vw, 350px"
                 src={artwork.image}
+                unoptimized
               />
               <span className={styles.artworkNumber}>0{index + 1}</span>
               <span className={styles.artworkArrow} aria-hidden="true">
                 ↗
               </span>
-            </div>
+            </Link>
             <div className={styles.artworkCaption}>
               <h3>{artwork.title}</h3>
               <span>{artwork.category}</span>
@@ -204,7 +170,7 @@ export function ArtistArtworkGallery() {
             aria-label={`Show artwork ${index + 1}: ${artwork.title}`}
             aria-current={activeIndex === index ? "true" : undefined}
             className={`${styles.galleryDot} ${activeIndex === index ? styles.galleryDotActive : ""}`}
-            key={artwork.title}
+            key={artwork.id}
             onClick={() => scrollToArtwork(index)}
             type="button"
           />

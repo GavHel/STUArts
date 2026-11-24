@@ -12,6 +12,10 @@ export type Artwork = {
   image: string;
   alt: string;
   profileHref?: string;
+  description?: string | null;
+  year?: number | null;
+  priceCad?: number | null;
+  id?: string;
 };
 
 type DiscoverGalleryProps = {
@@ -42,7 +46,7 @@ export function DiscoverGallery({ works }: DiscoverGalleryProps) {
   }, [category, query, works]);
 
   return (
-    <section>
+    <section id="all-work">
       <div className={styles.sectionTop}>
         <div>
           <p className={styles.eyebrow}>A LITTLE OF EVERYTHING</p>
@@ -88,20 +92,36 @@ export function DiscoverGallery({ works }: DiscoverGalleryProps) {
       </div>
 
       {filteredWorks.length ? (
-        <div className={styles.workGrid} id="all-work">
+        <div className={styles.workGrid}>
           {filteredWorks.map((work) => (
-            <article className={styles.workCard} key={`${work.artist}-${work.title}`}>
+            <article className={styles.workCard} key={work.id ?? `${work.artist}-${work.title}`}>
               <div className={styles.workImage}>
                 <Image
                   src={work.image}
                   alt={work.alt}
                   fill
                   sizes="(max-width: 650px) 45vw, (max-width: 900px) 45vw, 25vw"
+                  unoptimized
                 />
               </div>
               <div className={styles.workInfo}>
                 <h3>{work.title}</h3>
-                <p>{work.medium} <span>·</span> {work.artist}</p>
+                <p>
+                  {work.medium} <span>·</span> {work.artist}
+                  {work.year ? <> <span>·</span> {work.year}</> : null}
+                </p>
+                {work.description ? (
+                  <p className={styles.workDescription}>{work.description}</p>
+                ) : null}
+                {work.priceCad != null ? (
+                  <strong className={styles.workPrice}>
+                    {new Intl.NumberFormat("en-CA", {
+                      style: "currency",
+                      currency: "CAD",
+                      maximumFractionDigits: 0,
+                    }).format(work.priceCad)}
+                  </strong>
+                ) : null}
                 {work.profileHref ? (
                   <Link href={work.profileHref}>Meet the artist ↗</Link>
                 ) : (

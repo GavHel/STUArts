@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState, type FormEvent } from "react";
 import styles from "../experience.module.css";
 
@@ -51,7 +50,7 @@ const formatPrice = (amount: number) =>
     maximumFractionDigits: 0,
   }).format(amount);
 
-export function CommissionBuilder() {
+export function CommissionBuilder({ artistSlug, artistName }: { artistSlug: string; artistName: string }) {
   const [form, setForm] = useState(initialForm);
   const [step, setStep] = useState(0);
   const [reviewing, setReviewing] = useState(false);
@@ -110,7 +109,7 @@ export function CommissionBuilder() {
     }
     if (step === 3) {
       if (!form.name.trim() || !form.email.trim()) {
-        setError("Add your name and email so Maya can reply to your request.");
+        setError(`Add your name and email so ${artistName} can reply to your request.`);
         return false;
       }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
@@ -143,6 +142,7 @@ export function CommissionBuilder() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          artist_slug: artistSlug,
           medium: form.medium,
           placement: form.placement,
           brief: form.brief,
@@ -223,6 +223,7 @@ export function CommissionBuilder() {
               point, not a final quote.
             </p>
             <dl className={styles.reviewList}>
+              <div><dt>Artist</dt><dd>{artistName}</dd></div>
               <div><dt>Artwork</dt><dd>{form.medium}</dd></div>
               <div><dt>Placement</dt><dd>{form.placement}</dd></div>
               <div>
@@ -247,7 +248,7 @@ export function CommissionBuilder() {
               <div className={styles.submissionSuccess} role="status">
                 <strong>Your request has been saved.</strong>
                 <p>
-                  The request is in the database. Artist email notifications
+                  It is now in the STUArts admin inbox. Email notifications
                   aren&apos;t configured yet.
                 </p>
               </div>
@@ -255,7 +256,7 @@ export function CommissionBuilder() {
               <>
                 <p className={styles.note}>
                   Your contact details will be stored with this request so the
-                  artist can follow up when request management is available.
+                  artist can follow up through STUArts.
                 </p>
                 {submissionError && (
                   <p className={styles.formError} role="alert">{submissionError}</p>
@@ -338,7 +339,7 @@ export function CommissionBuilder() {
                     className={styles.textarea}
                     id="brief"
                     onChange={(event) => update("brief", event.target.value)}
-                    placeholder="Colors, a feeling, a story, or anything else you'd like Maya to know..."
+                    placeholder={`Colors, a feeling, a story, or anything else you'd like ${artistName} to know...`}
                     value={form.brief}
                   />
                 </section>
@@ -427,7 +428,7 @@ export function CommissionBuilder() {
                   value={form.inspiration}
                 />
                 <label className={styles.fieldLabel} htmlFor="brief-inspiration">
-                  Anything else Maya should know?
+                  Anything else {artistName} should know?
                 </label>
                 <textarea
                   className={styles.textarea}
@@ -457,13 +458,13 @@ export function CommissionBuilder() {
                     type="date"
                     value={form.delivery}
                   />
-                  <p className={styles.note}>Estimated making time: {studioTime}. Maya will confirm availability.</p>
+                  <p className={styles.note}>Estimated making time: {studioTime}. {artistName} will confirm availability.</p>
                 </section>
                 <section className={styles.formCard}>
                   <div className={styles.formCardHeader}>
                     <div>
-                      <h2>How can Maya reach you?</h2>
-                      <p>Your details will be saved with your request so Maya can follow up.</p>
+                      <h2>How can {artistName} reach you?</h2>
+                      <p>Your details will be saved with your request so {artistName} can follow up.</p>
                     </div>
                     <span className={styles.required}>REQUIRED</span>
                   </div>
@@ -521,16 +522,12 @@ export function CommissionBuilder() {
             <p className={styles.eyebrow}>YOUR REQUEST</p>
             <h2>Personal ledger</h2>
             <div className={styles.summaryArtist}>
-              <Image
-                className={styles.artistAvatar}
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
-                alt=""
-                width={35}
-                height={35}
-              />
+              <span className={styles.artistAvatar} aria-hidden="true">
+                {artistName.split(/\s+/).slice(0, 2).map((part) => part[0]).join("")}
+              </span>
               <span>
-                <strong>Maya Linnea Chen</strong>
-                <small>Student artist · Calgary, AB</small>
+                <strong>{artistName}</strong>
+                <small>STUArts artist</small>
               </span>
             </div>
             <div className={styles.summaryLine}>
@@ -549,7 +546,7 @@ export function CommissionBuilder() {
               <span>Estimated total</span><strong>{formatPrice(total)}</strong>
             </div>
             <p className={styles.note}>
-              Planning estimate only. Maya will confirm the final scope,
+              Planning estimate only. {artistName} will confirm the final scope,
               timeline, and price before any commitment.
             </p>
           </aside>

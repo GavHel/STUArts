@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Maya Linnea Chen | StartUArts",
+  title: "Artists | STUArts",
   description:
-    "Meet Maya Linnea Chen, a multidisciplinary student artist at the University of Calgary.",
+    "Discover student artists and original artwork in the STUArts community.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

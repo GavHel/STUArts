@@ -43,7 +43,7 @@ export function SimulatorControls() {
             aria-label={`Abstract painting preview with ${frameFinishes[frame].name.toLowerCase()} frame`}
             style={{
               backgroundColor: frameFinishes[frame].color,
-              marginTop: `${(height - 3) * 22}px`,
+              marginTop: `${(3 - height) * 22}px`,
               transform: `scale(${factor})`,
             }}
           >
@@ -59,8 +59,8 @@ export function SimulatorControls() {
 
       <aside className={styles.simPanel}>
         <p className={styles.eyebrow}>YOUR CANVAS</p>
-        <h2>The space between</h2>
-        <p>Original mixed media · Maya Linnea Chen</p>
+        <h2>Sample artwork</h2>
+        <p>Explore the preview with a sample image.</p>
 
         <div className={styles.simControl}>
           <label className={styles.controlLabel} htmlFor="artwork-size">
@@ -134,8 +134,8 @@ export function SimulatorControls() {
           />
         </div>
 
-        <Link className={styles.action} href="/commission">
-          Ask about this artwork <span aria-hidden="true">↗</span>
+        <Link className={styles.action} href="/discover">
+          Explore artwork <span aria-hidden="true">↗</span>
         </Link>
         <p className={styles.note}>
           Preview is an approximation. Actual colors and scale may vary slightly

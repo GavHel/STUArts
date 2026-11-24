@@ -10,6 +10,101 @@
   background: var(--paper);
 }
 
+.directoryIntro,
+.directory,
+.directoryNotice {
+  width: min(100% - 88px, 1080px);
+  margin: 0 auto;
+}
+
+.directoryIntro {
+  padding: 70px 0 56px;
+}
+
+.directoryIntro h1 {
+  max-width: 720px;
+  margin: 14px 0;
+  font-family: var(--serif);
+  font-size: clamp(42px, 6vw, 72px);
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 1.04;
+}
+
+.directoryIntro h1 em {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.directoryIntro > p:not(.eyebrow) {
+  max-width: 510px;
+  margin: 0 0 23px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.directory {
+  padding-bottom: 70px;
+}
+
+.directoryNotice {
+  padding: 24px 0 70px;
+  color: var(--muted);
+}
+
+.directoryCount {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.artistGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px 20px;
+}
+
+.artistCard {
+  min-width: 0;
+  background: #fffdf9;
+}
+
+.artistImage {
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  color: var(--accent);
+  background: #e6d7c9;
+  font-family: var(--serif);
+  font-size: 24px;
+}
+
+.artistImage img {
+  object-fit: cover;
+}
+
+.artistDetails {
+  padding: 18px;
+}
+
+.artistDetails h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.artistDetails p {
+  min-height: 2.8em;
+  margin: 8px 0 14px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
 .header {
   width: min(100% - 88px, 1280px);
   height: 88px;
@@ -114,6 +209,12 @@
 }
 
 .profile {
+  --ink: #28231f;
+  --muted: #766f68;
+  --line: #e7ded3;
+  --paper: #f8f5ef;
+  --accent: #87362c;
+  --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
   width: min(100% - 88px, 1080px);
   min-height: 530px;
   margin: 0 auto;
@@ -300,6 +401,7 @@
 
 .artworkImage {
   aspect-ratio: 1.65;
+  display: block;
   position: relative;
   overflow: hidden;
   background: #ded4c9;
@@ -590,6 +692,16 @@
 }
 
 @media (max-width: 760px) {
+  .directoryIntro,
+  .directory,
+  .directoryNotice {
+    width: calc(100% - 48px);
+  }
+
+  .artistGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .header {
     width: calc(100% - 40px);
     height: 73px;
@@ -670,6 +782,24 @@
 }
 
 @media (max-width: 540px) {
+  .directoryIntro,
+  .directory,
+  .directoryNotice {
+    width: calc(100% - 40px);
+  }
+
+  .directoryIntro {
+    padding: 45px 0 38px;
+  }
+
+  .directory {
+    padding-bottom: 48px;
+  }
+
+  .artistGrid {
+    grid-template-columns: 1fr;
+  }
+
   .header {
     width: calc(100% - 32px);
     height: 67px;

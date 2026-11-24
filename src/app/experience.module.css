@@ -313,8 +313,14 @@
 .artistAvatar {
   width: 35px;
   height: 35px;
+  display: grid;
+  flex: 0 0 35px;
+  place-items: center;
   border-radius: 50%;
-  object-fit: cover;
+  color: #87362c;
+  background: #e6d7c9;
+  font-size: 10px;
+  font-weight: 600;
 }
 
 .summaryArtist strong,
@@ -403,6 +409,14 @@
 .formActions button:not(:disabled):hover,
 .outlineAction:hover {
   background: #fbf3ee;
+}
+
+.formActions .action:not(:disabled):hover {
+  background: #65271f;
+}
+
+.artistProfile {
+  width: 100%;
 }
 
 .formError {
@@ -742,6 +756,19 @@
   font-size: 8px;
 }
 
+.workInfo .workDescription {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.workPrice {
+  display: block;
+  margin-bottom: 10px;
+  color: #514a44;
+  font-size: 9px;
+  font-weight: 600;
+}
+
 .workInfo a,
 .profilePending {
   color: #87362c;
@@ -764,6 +791,68 @@
   background: #f0f5ed;
   font-size: 8px;
   letter-spacing: 0.08em;
+}
+
+.wallPreview {
+  margin-bottom: 24px;
+  padding: 22px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 24px;
+  border: 1px solid #e7ded3;
+  background: #fffdf9;
+}
+
+.wallPreview h2 {
+  margin: 8px 0;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.wallPreview p {
+  color: #766f68;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.wallLabel {
+  display: block;
+  margin: 14px 0 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.wallPreview select,
+.wallPreview input {
+  width: 100%;
+  max-width: 100%;
+  accent-color: #87362c;
+}
+
+.wallPreview select {
+  padding: 9px;
+  border: 1px solid #d9c8be;
+  background: #fff;
+}
+
+.wallPreview button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.wallPreview .action {
+  margin-top: 12px;
+}
+
+.wallModel {
+  width: 100%;
+  height: 300px;
+  background: #eee7de;
+}
+
+.wallViewer .outlineAction {
+  margin-top: 12px;
 }
 
 .simulator {

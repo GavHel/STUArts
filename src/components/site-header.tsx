@@ -2,7 +2,7 @@ import Link from "next/link";
 import styles from "./site-header.module.css";
 
 type SiteHeaderProps = {
-  active?: "artists" | "discover" | "commission" | "studio";
+  active?: "artists" | "discover" | "commission" | "studio" | "account";
 };
 
 const links = [
@@ -10,17 +10,18 @@ const links = [
   { id: "discover", label: "Discover", href: "/discover" },
   { id: "commission", label: "Commission", href: "/commission" },
   { id: "studio", label: "AR Studio", href: "/studio" },
+  { id: "account", label: "Account", href: "/account" },
 ] as const;
 
 export function SiteHeader({ active }: SiteHeaderProps) {
   return (
     <header className={styles.header}>
-      <Link className={styles.wordmark} href="/" aria-label="StartUArts home">
+      <Link className={styles.wordmark} href="/" aria-label="STUArts home">
         <span className={styles.wordmarkIcon} aria-hidden="true">
           s
         </span>
         <span>
-          <strong>StartUArts</strong>
+          <strong>STUArts</strong>
           <small>CREATIVE COMMUNITY</small>
         </span>
       </Link>
@@ -35,7 +36,7 @@ export function SiteHeader({ active }: SiteHeaderProps) {
           </Link>
         ))}
       </nav>
-      <a className={styles.headerLink} href="mailto:hello@startuarts.edu">
+      <a className={styles.headerLink} href="mailto:hello@stuarts.edu">
         Join the community <span aria-hidden="true">↗</span>
       </a>
     </header>
@@ -46,10 +47,10 @@ export function SiteFooter() {
   return (
     <footer className={styles.footer}>
       <Link className={styles.footerWordmark} href="/">
-        StartUArts
+        STUArts
       </Link>
       <p>A little more room for art, and the people who make it.</p>
-      <a href="mailto:hello@startuarts.edu">Say hello ↗</a>
+      <a href="mailto:hello@stuarts.edu">Say hello ↗</a>
     </footer>
   );
 }
