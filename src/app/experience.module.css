@@ -855,6 +855,10 @@
   margin-top: 12px;
 }
 
+.wallQuickLook::after {
+  content: "View on wall (iPhone)";
+}
+
 .simulator {
   padding-bottom: 44px;
   display: grid;

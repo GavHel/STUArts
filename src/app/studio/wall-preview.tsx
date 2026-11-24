@@ -130,11 +130,10 @@ export function WallPreview({ artworks }: { artworks: Artwork[] }) {
             "camera-controls": true,
             class: styles.wallModel,
           }, createElement("button", { slot: "ar-button", className: styles.action, type: "button" }, "View on wall (Android)"))}
-          {appleMobile ? <a className={styles.outlineAction} href={preview.usdz} rel="ar" download="artwork.usdz">
-            {/* Quick Look requires an image as the link's first child. */}
+          {appleMobile ? <a className={`${styles.outlineAction} ${styles.wallQuickLook}`} href={preview.usdz} rel="ar" download="artwork.usdz" aria-label="View on wall (iPhone)">
+            {/* Quick Look requires the image to be the link's only child. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/favicon.ico" alt="" width="1" height="1" />
-            View on wall (iPhone)
           </a> : null}
           <p className={styles.note}>If the Android button is unavailable, this browser or device does not support WebXR wall AR.</p>
         </div>
